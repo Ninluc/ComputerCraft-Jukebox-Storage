@@ -37,7 +37,7 @@ settings.actionsParametersSeparator = " "
 
 ---- CLIENT ----
 -- Client actions folder location
-settings.actionsFolder = settings.wd + "actions/"
+settings.actionsFolder = settings.wd .. "actions/"
 -- Turtle position file location
 settings.positionFileName = "turtlePos"
 -- Turtle facing file
@@ -50,6 +50,6 @@ settings.facingFileName = "facing"
 settings.connectedClientsIdFileName = "connectedIds"
 
 -- The folder where the turtles files are stored
-settings.turtlesManagerFolder = "turtles/"
+settings.turtlesManagerFolder = settings.wd .. "turtles/"
 
 return settings
