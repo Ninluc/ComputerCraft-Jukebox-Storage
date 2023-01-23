@@ -10,6 +10,7 @@ function protocolManager.getId(--[[required]] protocol)
 end
 
 function protocolManager.add(id)
+    fm.createIfNoFile(set.memoryFilesFolder .. set.connectedClientsIdFileName)
     fm.append(set.memoryFilesFolder .. set.connectedClientsIdFileName, id .. "\n")
     log.log("added client #" .. id .. ' to the protocol manager file ("' .. set.memoryFilesFolder .. set.connectedClientsIdFileName .. '")')
 end
