@@ -25,7 +25,7 @@ settings.connectionCreateProtocol = "STORAGE-OP_CONNECT"
 settings.protocolName = "STORAGE-OP"
 
 -- Memory files locations relative to the workingDirectory
-settings.memoryFilesFolder = settings.wd + "memory/"
+settings.memoryFilesFolder = settings.wd .. "memory/"
 
 -- Actions Parameters --
 -- actions separator for the action and it's parameters
