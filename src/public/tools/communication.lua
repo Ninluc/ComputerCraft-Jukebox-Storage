@@ -83,10 +83,11 @@ function communnicationTool.sendAndWait(--[[required]]recipient, --[[required]]m
         max_attempt = 10
     end
     
-    
+    local id, msg
     while not msg do
         communnicationTool.send(recipient, message, protocol)
         id, msg = communnicationTool.receive(protocol, 1)
+        os.sleep(0.01)
     end
     return id, msg
 end

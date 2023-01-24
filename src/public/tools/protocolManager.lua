@@ -2,6 +2,7 @@ local fm  = require("tools.fileManager")
 local set = require("settings")
 local log = require("tools.logging")
 
+local file = set.memoryFilesFolder .. set.connectedClientsIdFileName
 local protocolManager = {}
 
 function protocolManager.getId(--[[required]] protocol)
@@ -10,18 +11,18 @@ function protocolManager.getId(--[[required]] protocol)
 end
 
 function protocolManager.add(id)
-    fm.createIfNoFile(set.memoryFilesFolder .. set.connectedClientsIdFileName)
-    fm.append(set.memoryFilesFolder .. set.connectedClientsIdFileName, id .. "\n")
-    log.log("added client #" .. id .. ' to the protocol manager file ("' .. set.memoryFilesFolder .. set.connectedClientsIdFileName .. '")')
+    fm.createIfNoFile(file)
+    fm.append(file, id .. "\n")
+    log.log("added client #" .. id .. ' to the protocol manager file ("' .. file .. '")')
 end
 
 function protocolManager.exists(id)
-    return fm.containsLine(set.memoryFilesFolder .. set.connectedClientsIdFileName, id)
+    return fm.exists(file) and fm.containsLine(file, id)
 end
 
 function protocolManager.clear()
-    fm.write(set.memoryFilesFolder .. set.connectedClientsIdFileName, "")
-    log.log('Cleared the protocol manager file ("' .. set.memoryFilesFolder .. set.connectedClientsIdFileName .. '")')
+    fm.write(file, "")
+    log.log('Cleared the protocol manager file ("' .. file .. '")')
 end
 
 return protocolManager

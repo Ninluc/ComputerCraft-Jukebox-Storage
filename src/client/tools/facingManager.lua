@@ -1,4 +1,3 @@
----@diagnostic disable: need-check-nil
 local set  = require("settings")
 local fm = require("tools.fileManager")
 
@@ -7,8 +6,7 @@ local facingManager = {}
 
 function facingManager.init()
     if not fm.createIfNoFile(set.memoryFilesFolder .. set.facingFileName) then
-        -- facingManager.setFacing("N")
-        facingManager.setFacing({1, -1})
+        facingManager.setFacing("N")
     end
 end
 
@@ -69,15 +67,6 @@ function facingManager.rotateFacing(direction)
 
     return facingManager.setFacing(newFacing)
 end
-
--- function facingManager.move()
---     local facing = facingManager.getFacing()
-
-
-
-
-    
--- end
 
 
 

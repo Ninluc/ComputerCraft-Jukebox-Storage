@@ -16,8 +16,8 @@ local screen = peripheral.find("monitor")
 local connectedClients = {}
 
 while true do
-
     local event = {os.pullEvent()}
+    -- print(event[1], event[2])
     if event[ 1 ] == "rednet_message" then
         local id = tonumber(event[2])
         local message = event[3]

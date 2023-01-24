@@ -185,7 +185,6 @@ function turtleMovement.face(target)
     local facing = facM.getFacing()
 
     -- If they are the same
----@diagnostic disable-next-line: need-check-nil
     if facing[1] == target[1] and facing[2] == target[2] then
         return nil
     end
@@ -214,7 +213,6 @@ end
 ---- ADVANCED MOVEMENTS ----
 function turtleMovement.go(target, --[[optional]]mine)
     local pos = posM.getPosition()
-
     -- Check parameters and change to numbers
     for i = 1, 3, 1 do
         local coord = target[i]
