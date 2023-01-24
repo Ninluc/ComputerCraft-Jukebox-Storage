@@ -6,8 +6,10 @@ comT.connectModem()
 local protM = require("tools.protocolManager")
 local set   = require("settings")
 local fm    = require("tools.fileManager")
-local stor  = require("storage")
-local actM = require("tools.actionsManager")
+local actM  = require("tools.actionsManager")
+local strT  = require("tools.stringTools")
+local store = require("storage")
+local actions = actM.getActions()
 
 local screen = peripheral.find("monitor")
 
@@ -30,11 +32,26 @@ while true do
             table.insert(connectedClients, id)
         elseif message == set.receiveConfirmationMsg then
             print("giving orders")
-            local nexStep = mine.getNextStep(id)
+            local nexStep = store.getNextStep(id)
             print("nexStep = " .. tostring(nexStep))
             if not (nexStep == nil) then
                 actM.sendAction(id, nexStep)
             end
+        -- If we receive an order from a client
+        elseif protocol == comT.getProtocolName(os.computerID()) then
+            print("received " .. message)
+
+            local action, paramList = string.match(message, "(.*)%" .. set.actionsFieldSeparator .. "(.*)")
+
+            if paramList == nil then
+                actions[message]()
+            else
+                local param = strT.splitByChar(paramList, set.actionsParametersSeparator)
+                actions[action](param)
+            end
+
+            -- We send a confirmation to receive the next message
+            comT.send(id, set.receiveConfirmationMsg, protocol)
         end
     end
 
