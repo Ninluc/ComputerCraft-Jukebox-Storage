@@ -1,5 +1,5 @@
 local comT  = require("tools.communication")
-local set   = require("globSettings")
+local set   = require("settings")
 local turtM = require("tools.turtlesManager")
 turtM.init()
 

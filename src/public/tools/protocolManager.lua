@@ -1,5 +1,5 @@
 local fm  = require("tools.fileManager")
-local set = require("globSettings")
+local set = require("settings")
 local log = require("tools.logging")
 
 local protocolManager = {}

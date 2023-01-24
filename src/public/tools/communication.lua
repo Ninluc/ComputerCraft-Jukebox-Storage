@@ -1,5 +1,5 @@
 local log   = require("tools.logging")
-local set   = require("globSettings")
+local set   = require("settings")
 local protM = require("tools.protocolManager")
 
 local communnicationTool = {}

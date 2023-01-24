@@ -1,4 +1,4 @@
-local set = require("globSettings")
+local set = require("settings")
 
 local fileManager = {}
 

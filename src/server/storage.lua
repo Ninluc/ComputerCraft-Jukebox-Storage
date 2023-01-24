@@ -1,6 +1,4 @@
-local actM = require("tools.actionsManager")
-local strT = require("tools.stringTools")
-local set  = require("globSettings")
+local set    = require("settings")
 
 local mining = {}
 

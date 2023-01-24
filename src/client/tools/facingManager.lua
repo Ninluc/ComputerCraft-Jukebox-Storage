@@ -1,5 +1,5 @@
 ---@diagnostic disable: need-check-nil
-local set  = require("globSettings")
+local set  = require("settings")
 local fm = require("tools.fileManager")
 
 

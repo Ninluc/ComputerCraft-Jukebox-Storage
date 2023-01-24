@@ -1,6 +1,6 @@
 local comT  = require("tools.communication")
 local protM = require("tools.protocolManager")
-local set   = require("globSettings")
+local set   = require("settings")
 
 local server = {}
 
