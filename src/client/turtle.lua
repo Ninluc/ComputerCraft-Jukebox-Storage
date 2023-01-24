@@ -208,7 +208,8 @@ function turtleMovement.go(target, --[[optional]]mine)
     local pos = posM.getPosition()
 
     -- Check parameters and change to numbers
-    for i, coord in pairs(target) do
+    for i = 1, 3, 1 do
+        local coord = target[i]
         if coord then
             local intCoord = tonumber(coord)
             if intCoord then
