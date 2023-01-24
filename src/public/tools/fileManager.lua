@@ -124,5 +124,9 @@ function fileManager.readLines(fileName)
     return lines
 end
 
+function fileManager.countLine(fileName)
+    return #fileManager.readLines(fileName)
+end
+
 
 return fileManager

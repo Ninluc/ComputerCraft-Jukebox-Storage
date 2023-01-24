@@ -50,6 +50,9 @@ settings.containersNames = {
     "minecraft:barrel",
     "minecraft:.*shulker_box"
 }
+-- The Y level where the storage column begin
+settings.storageStartYLevel = 0
+
 
 
 
@@ -59,5 +62,16 @@ settings.connectedClientsIdFileName = "connectedIds"
 
 -- The folder where the turtles files are stored
 settings.turtlesManagerFolder = settings.wd .. "turtles/"
+
+--- Storages
+-- The folder containing files about the storages
+settings.storageManagerFolder = settings.wd .. "storages/"
+-- The file name for informations about the storages
+settings.storageManagerInfoFileName = settings.storageManagerFolder .. "storage_info"
+-- Filename for storage file (has the id at the end)
+settings.storageManagerStorageFileName = settings.storageManagerFolder .. "storage-"
+
+
+
 
 return settings
