@@ -1,6 +1,6 @@
 local log   = require("tools.logging")
 local fm = require("tools.fileManager")
-local set = require("globSettings")
+local set = require("settings")
 
 local positionManager = {}
 
