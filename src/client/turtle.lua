@@ -164,6 +164,11 @@ end
 
 
 ---- ROTATION MOVEMENTS ----
+
+--[[ Rotate once to a specific direction 
+@param direction The direction to rotate, more than 0 means clockwise, less than
+0 counterclockwise
+ ]]
 function turtleMovement.rotate(direction)
     facM.rotateFacing(direction)
     if direction > 0 then
@@ -173,6 +178,9 @@ function turtleMovement.rotate(direction)
     end
 end
 
+--[[ Face a direction (N, E, S or W)
+@param target The list that represent a facing (see documentation)
+]]
 function turtleMovement.face(target)
     local facing = facM.getFacing()
 

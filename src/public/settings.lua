@@ -42,6 +42,8 @@ settings.actionsFolder = settings.wd .. "actions/"
 settings.positionFileName = "turtlePos"
 -- Turtle facing file
 settings.facingFileName = "facing"
+
+--- Containers
 -- Containers list, use regex
 settings.containersNames = {
     "minecraft:chest",
