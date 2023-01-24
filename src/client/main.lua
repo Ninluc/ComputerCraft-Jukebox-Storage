@@ -14,9 +14,44 @@ local act   = require("tools.actionsManager")
 local actions = act.getActions()
 local strT  = require("tools.stringTools")
 
+
+
 -- Create a connection
 local servId, msg
 while not msg do
     servId, msg = clt.createConnection()
 end
 print("Succesfully connected")
+
+
+
+while true do
+
+    local event = {os.pullEvent()}
+    if event[ 1 ] == "rednet_message" then
+        local id = tonumber(event[2])
+        local message = event[3]
+        local protocol = event[4]
+
+        log.log('Received "' .. message .. '" from user #' .. id .. ' on protocol "' .. protocol .. '"')
+
+        if message == set.receiveConfirmationMsg then
+            -- Received = true
+        else
+            print("received " .. message)
+
+            local action, paramList = string.match(message, "(.*)%" .. set.actionsFieldSeparator .. "(.*)")
+
+            if paramList == nil then
+                actions[message]()
+            else
+                local param = strT.splitByChar(paramList, set.actionsParametersSeparator)
+                actions[action](param)
+            end
+
+            -- We send a confirmation to receive the next message
+            comT.send(servId, set.receiveConfirmationMsg, protocol)
+        end
+    end
+
+end
