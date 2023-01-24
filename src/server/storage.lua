@@ -21,6 +21,7 @@ function mining.getNextStep(clientId)
     end
 
 
+        if (uInput.ask("Êtes-vous certains que la tortue est bien positionnée (voir documentation)\n (y/n)") == "y") then
 
     -- if lastStep == nil then
     --     return actM.format("digDown",  {"30"})
