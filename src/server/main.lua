@@ -11,13 +11,21 @@ local strT  = require("tools.stringTools")
 local store = require("storage")
 local actions = actM.getActions()
 
-local screen = peripheral.find("monitor")
+-- WINDOWS
+multishell.setTitle(multishell.getCurrent(), "Log")
+-- Input window
+local id = multishell.launch(_ENV, set.inputProgramPath)
+multishell.setTitle(id, "Input")
+
+-- local screen = peripheral.find("monitor")
 
 local connectedClients = {}
 
 while true do
     local event = {os.pullEvent()}
     -- print(event[1], event[2])
+
+    -- REDNET MESSAGE
     if event[ 1 ] == "rednet_message" then
         local id = tonumber(event[2])
         local message = event[3]
@@ -53,6 +61,21 @@ while true do
             -- We send a confirmation to receive the next message
             comT.send(id, set.receiveConfirmationMsg, protocol)
         end
+    -- USER INPUT
+    elseif event[ 1 ] == "input" then
+        local command = event[2]
+        local args
+        if event[3] then
+            args = event[3]
+        end
+
+        -- MAP
+        if command == "map" then
+            actM.sendAction(nil, actM.format("map", args))
+            print("sent mappage")
+        end
+
+        print("User asked command : " .. command)
     end
 
 end

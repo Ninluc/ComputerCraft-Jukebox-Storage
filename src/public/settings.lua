@@ -63,6 +63,9 @@ settings.connectedClientsIdFileName = "connectedIds"
 -- The folder where the turtles files are stored
 settings.turtlesManagerFolder = settings.wd .. "turtles/"
 
+-- The input program file location
+settings.inputProgramPath = settings.wd .. "input.lua"
+
 --- Storages
 -- The folder containing files about the storages
 settings.storageManagerFolder = settings.wd .. "storages/"
