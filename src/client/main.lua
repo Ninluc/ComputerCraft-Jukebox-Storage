@@ -31,7 +31,10 @@ while true do
     if event[ 1 ] == "rednet_message" then
         local id = tonumber(event[2])
         local message = event[3]
-        local protocol = event[4]
+        local protocol = ""
+        if event[4] then
+            protocol = event[4]
+        end
 
         log.log('Received "' .. message .. '" from user #' .. id .. ' on protocol "' .. protocol .. '"')
 

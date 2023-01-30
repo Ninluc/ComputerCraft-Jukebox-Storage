@@ -11,11 +11,21 @@ end
 
 function communnicationTool.send(--[[required]]recipient, --[[required]]message , --[[optional]]protocol)
     if not protocol then
-        rednet.send(recipient, message)
-        log.log('Sent \"' .. message .. '" to computer #' .. recipient)
+        if recipient then
+            rednet.send(recipient, message)
+            log.log('Sent \"' .. message .. '" to computer #' .. recipient)
+        else
+            rednet.broadcast(message)
+            log.log('Broadcasted \"' .. message .. '\"')
+        end
     else
-        rednet.send(recipient, message, protocol)
-        log.log('Sent \"' .. message .. '" to computer #' .. recipient .. ' with protocol "' .. protocol .. '"')
+        if recipient then
+            rednet.send(recipient, message, protocol)
+            log.log('Sent \"' .. message .. '" to computer #' .. recipient .. ' with protocol "' .. protocol .. '"')
+        else
+            rednet.broadcast(message, protocol)
+            log.log('Broadcasted \"' .. message .. '" with protocol "' .. protocol .. '"')
+        end
     end
 end
 
@@ -96,6 +106,9 @@ end
 
 -- MISC --
 function communnicationTool.getProtocolName(clientId)
+    if not clientId then
+        return nil
+    end
     return set.protocolName .. "_" .. clientId
 end
 

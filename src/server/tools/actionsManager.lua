@@ -24,7 +24,9 @@ end
 
 function actionsManager.sendAction(clientId, action)
     comT.send(clientId, action, comT.getProtocolName(clientId))
-    turtM.addAction(clientId, action)
+    if clientId then
+        turtM.addAction(clientId, action)
+    end
 end
 
 function actionsManager.getLastAction(clientId)
