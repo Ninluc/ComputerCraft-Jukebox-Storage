@@ -3,10 +3,10 @@ local strT   = require("tools.stringTools")
 local uInput = require('tools.uInput')
 local set    = require("settings")
 
-local mining = {}
+local storage = {}
 
 
-function mining.getNextStep(clientId)
+function storage.getNextStep(clientId)
     local lastStep, parameters
     local lastStepLine = actM.getLastAction(clientId)
     if not (lastStepLine == nil or lastStepLine == "") then
@@ -31,7 +31,7 @@ function mining.getNextStep(clientId)
     end
 
     -- return actM.format("go", {0, 0, 0, true})
-    return actM.format("map", {os.getComputerID()})
+    -- return actM.format("map", {os.getComputerID()})
 end
 
-return mining
+return storage
