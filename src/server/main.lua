@@ -7,7 +7,7 @@ local protM = require("tools.protocolManager")
 local set   = require("globSettings")
 local fm    = require("tools.fileManager")
 local stor  = require("storage")
-local actM = require("tools.actionsManager")
+local actM  = require("tools.actionsManager")
 
 local screen = peripheral.find("monitor")
 
@@ -22,7 +22,7 @@ while true do
         local protocol = event[4]
 
         log.log('Received "' .. message .. '" from user #' .. id .. ' on protocol "' .. protocol .. '"')
-        
+
         local protocolType = protM.getId(protocol)
 
         if protocolType == "CONNECT" then
