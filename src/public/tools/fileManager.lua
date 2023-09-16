@@ -1,4 +1,4 @@
-local set = require("globSettings")
+local set = require("settings")
 
 local fileManager = {}
 
@@ -122,6 +122,10 @@ function fileManager.readLines(fileName)
     file.close()
 
     return lines
+end
+
+function fileManager.countLine(fileName)
+    return #fileManager.readLines(fileName)
 end
 
 

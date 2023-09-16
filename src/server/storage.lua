@@ -1,11 +1,12 @@
-local actM = require("tools.actionsManager")
-local strT = require("tools.stringTools")
-local set  = require("globSettings")
+local actM   = require("tools.actionsManager")
+local strT   = require("tools.stringTools")
+local uInput = require('tools.uInput')
+local set    = require("settings")
 
-local mining = {}
+local storage = {}
 
 
-function mining.getNextStep(clientId)
+function storage.getNextStep(clientId)
     local lastStep, parameters
     local lastStepLine = actM.getLastAction(clientId)
     if not (lastStepLine == nil or lastStepLine == "") then
@@ -21,24 +22,16 @@ function mining.getNextStep(clientId)
     end
 
 
+    if (lastStep == nil) then
+        if (uInput.ask("Êtes-vous certains que la tortue est bien positionnée (voir documentation)\n (y/n)") == "y") then
+            return actM.format("map")
+        else
+            return nil
+        end
+    end
 
-    -- if lastStep == nil then
-    --     return actM.format("digDown",  {"30"})
-
-    -- elseif lastStep == "digDown" then
-    --     return actM.format("digForward", {tostring(set.galleriesSpaceBetween)})
-    
-    -- elseif lastStep == "digForward" then
-    return actM.format("go", {0, 0, 0, true})
-
-    -- elseif lastStep == "digForward" then
-        -- return actM.format("digForward", {tostring(set.galleriesLength)})
-    -- end
-
-
-
-    -- return nil
-    -- return nil
+    -- return actM.format("go", {0, 0, 0, true})
+    -- return actM.format("map", {os.getComputerID()})
 end
 
-return mining
+return storage

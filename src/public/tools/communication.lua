@@ -1,6 +1,7 @@
 local log   = require("tools.logging")
-local set   = require("globSettings")
+local set   = require("settings")
 local protM = require("tools.protocolManager")
+local strT  = require("tools.stringTools")
 
 local communnicationTool = {}
 
@@ -11,11 +12,21 @@ end
 
 function communnicationTool.send(--[[required]]recipient, --[[required]]message , --[[optional]]protocol)
     if not protocol then
-        rednet.send(recipient, message)
-        log.log('Sent \"' .. message .. '" to computer #' .. recipient)
+        if recipient then
+            rednet.send(recipient, message)
+            log.log('Sent \"' .. message .. '" to computer #' .. recipient)
+        else
+            rednet.broadcast(message)
+            log.log('Broadcasted \"' .. message .. '\"')
+        end
     else
-        rednet.send(recipient, message, protocol)
-        log.log('Sent \"' .. message .. '" to computer #' .. recipient .. ' with protocol "' .. protocol .. '"')
+        if recipient then
+            rednet.send(recipient, message, protocol)
+            log.log('Sent \"' .. message .. '" to computer #' .. recipient .. ' with protocol "' .. protocol .. '"')
+        else
+            rednet.broadcast(message, protocol)
+            log.log('Broadcasted \"' .. message .. '" with protocol "' .. protocol .. '"')
+        end
     end
 end
 
@@ -83,18 +94,38 @@ function communnicationTool.sendAndWait(--[[required]]recipient, --[[required]]m
         max_attempt = 10
     end
     
-    
+    local id, msg
     while not msg do
         communnicationTool.send(recipient, message, protocol)
         id, msg = communnicationTool.receive(protocol, 1)
+        os.sleep(0.01)
     end
     return id, msg
+end
+
+--[[ Replace any character that could potentially break an action ]]
+function communnicationTool.cleanse(text)
+    -- We remove any character
+    text = strT.joinByChar(strT.splitByChar(text, set.actionsFieldSeparator), set.actionsFieldSeparatorReplacement)
+    text = strT.joinByChar(strT.splitByChar(text, set.actionsParametersSeparator), set.actionsParametersSeparatorReplacement)
+    return text
+end
+
+--[[ Unreplace any character that could potentially break an action ]]
+function communnicationTool.uncleanse(text)
+    -- We remove any character
+    text = strT.joinByChar(strT.splitByChar(text, set.actionsFieldSeparatorReplacement), set.actionsFieldSeparator)
+    text = strT.joinByChar(strT.splitByChar(text, set.actionsParametersSeparatorReplacement), set.actionsParametersSeparator)
+    return text
 end
 
 
 
 -- MISC --
 function communnicationTool.getProtocolName(clientId)
+    if not clientId then
+        return nil
+    end
     return set.protocolName .. "_" .. clientId
 end
 

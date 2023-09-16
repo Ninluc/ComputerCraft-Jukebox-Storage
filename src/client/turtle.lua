@@ -1,5 +1,5 @@
 local fm   = require("tools.fileManager")
-local set  = require("globSettings")
+local set  = require("settings")
 local log  = require("tools.logging")
 local posM = require("tools.positionManager")
 local facM = require("tools.facingManager")
@@ -164,6 +164,11 @@ end
 
 
 ---- ROTATION MOVEMENTS ----
+
+--[[ Rotate once to a specific direction 
+@param direction The direction to rotate, more than 0 means clockwise, less than
+0 counterclockwise
+ ]]
 function turtleMovement.rotate(direction)
     facM.rotateFacing(direction)
     if direction > 0 then
@@ -173,11 +178,13 @@ function turtleMovement.rotate(direction)
     end
 end
 
+--[[ Face a direction (N, E, S or W)
+@param target The list that represent a facing (see documentation)
+]]
 function turtleMovement.face(target)
     local facing = facM.getFacing()
 
     -- If they are the same
----@diagnostic disable-next-line: need-check-nil
     if facing[1] == target[1] and facing[2] == target[2] then
         return nil
     end
@@ -206,9 +213,9 @@ end
 ---- ADVANCED MOVEMENTS ----
 function turtleMovement.go(target, --[[optional]]mine)
     local pos = posM.getPosition()
-
     -- Check parameters and change to numbers
-    for i, coord in pairs(target) do
+    for i = 1, 3, 1 do
+        local coord = target[i]
         if coord then
             local intCoord = tonumber(coord)
             if intCoord then
